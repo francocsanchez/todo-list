@@ -1,20 +1,85 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, SafeAreaView, Modal } from "react-native";
+
+// Components
+import { ModalEditItem } from "./components/ModalEditItem";
+import { InputAddItem } from "./components/List/InputAddItem";
+import { ListItems } from "./components/List/ListItems";
 
 export default function App() {
+  const [list, setList] = useState([]);
+  const [value, setValue] = useState("");
+
+  const [itemSelected, setItemSelected] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const onHableDelete = () => {
+    const updatedList = list.filter((item) => item !== itemSelected);
+    setList(updatedList);
+    setModalVisible(!modalVisible);
+  };
+
+  const onHableModal = (item) => {
+    setItemSelected(item);
+    setModalVisible(!modalVisible);
+  };
+
+  const handleAddItem = () => {
+    if (value) {
+      const item = {
+        id: Math.floor(Math.random() * 999999),
+        title: value,
+      };
+
+      setList([...list, item]);
+      setValue("");
+    }
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <SafeAreaView style={styles.main}>
+
+      <View style={styles.container}>
+
+        <Text style={styles.title}>Lista de compras</Text>
+
+        <InputAddItem
+          handleAddItem={handleAddItem}
+          value={value}
+          setValue={setValue}
+        />
+
+        <ListItems list={list} onHableModal={onHableModal} />
+
+      </View>
+
       <StatusBar style="auto" />
-    </View>
+
+      <Modal visible={modalVisible} animationType="slide">
+        <ModalEditItem
+          itemSelected={itemSelected}
+          onHableModal={onHableModal}
+          onHableDelete={onHableDelete}
+        />
+      </Modal>
+      
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  main: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  container: {
+    marginTop: 60,
+    marginHorizontal: 25,
+  },
+  title: {
+    textTransform: "uppercase",
+    fontWeight: "bold",
+    fontSize: 30,
+    marginBottom: 20,
   },
 });
