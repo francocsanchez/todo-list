@@ -1,27 +1,5 @@
-import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
-
-export const InputAddItem = ({ handleAddItem, setValue, value }) => {
-  return (
-    <View style={styles.containerInput}>
-      <TextInput
-        style={styles.input}
-        placeholder="Ingrese un elemento"
-        value={value}
-        onChangeText={(text) => setValue(text)}
-      />
-      <TouchableOpacity style={styles.addButton} onPress={handleAddItem}>
-        <Text style={styles.addButtonText}>+</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
+import { StyleSheet } from "react-native";
+import { colors } from "../../../../global/Styles";
 
 const styles = StyleSheet.create({
   containerInput: {
@@ -53,3 +31,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+
+export { styles };
