@@ -1,4 +1,3 @@
 import Home from "./home/Home";
-import Details from "./details/Details";
-
-export {Home, Details}
+import Category from "./category/Category";
+export {Home, Category}

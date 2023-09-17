@@ -6,8 +6,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     fontWeight: "bold",
     fontSize: 30,
-    marginTop: 50,
-    marginBottom:10,
+    marginVertical:10,
     textAlign: "center",
     color:colors.txtBlanco
   },

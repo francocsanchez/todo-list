@@ -2,7 +2,7 @@ import { Text, FlatList, Pressable } from "react-native";
 import { styles } from "./ListItems.styles";
 import { FontAwesome } from "@expo/vector-icons";
 
-const ListItems = ({ list, handleSelectCategory }) => {
+const ListItems = ({ list, navigation }) => {
   return (
     <FlatList
       data={list}
@@ -10,7 +10,7 @@ const ListItems = ({ list, handleSelectCategory }) => {
       renderItem={({ item }) => (
         <Pressable
           style={styles.listItem}
-          onPress={() => handleSelectCategory(item)}
+          onPress={() => navigation.navigate("Category", { item })}
         >
           <Text style={styles.listText}>
             <Text style={styles.numberList}>{item.id}</Text>

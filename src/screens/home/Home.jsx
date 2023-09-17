@@ -1,19 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { styles } from "./Home.styles";
 
 import { ListItems, InputAddItem } from "./components";
 import { View } from "react-native";
 import { Header } from "../../components";
 
-const Home = ({
-  list,
-  value,
-  setValue,
-  handleSearchCategory,
-  searching,
-  setSearching,
-  handleSelectCategory
-}) => {
+import { Category } from "../../data";
+
+const Home = ({ navigation }) => {
+  const [list, setList] = useState([]);
+  const [value, setValue] = useState("");
+  const [searching, setSearching] = useState(false);
+
+  const handleSearchCategory = () => {
+    if (value === "" && searching === false) {
+      return;
+    }
+
+    if (searching) {
+      setValue("");
+      setSearching(false);
+      return setList(Category);
+    }
+
+    setSearching(!searching);
+
+    const filterCategory = list.filter((item) => item.title.includes(value));
+    setList(filterCategory);
+  };
+
+  useEffect(() => {
+    setList(Category);
+  }, []);
+
   return (
     <View>
       <Header title={"Categorias"} />
@@ -26,7 +45,7 @@ const Home = ({
           searching={searching}
           setSearching={setSearching}
         />
-        <ListItems list={list} handleSelectCategory={handleSelectCategory}/>
+        <ListItems list={list} navigation={navigation} />
       </View>
     </View>
   );
