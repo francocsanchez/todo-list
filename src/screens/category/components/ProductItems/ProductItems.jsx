@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { CardItem } from "./components";
 import { Products } from "../../../../data";
 
-export default function ProductItems({ category }) {
+export default function ProductItems({ category, navigation }) {
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function ProductItems({ category }) {
     <FlatList
       data={product}
       keyExtractor={(item) => item.id}
-      renderItem={({ item }) => <CardItem item={item} />}
+      renderItem={({ item }) => <CardItem item={item} navigation={navigation}/>}
     />
   );
 }
